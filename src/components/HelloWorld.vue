@@ -1,42 +1,127 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
+  <div class="helloWorld">
+    <div v-if="!signedIn">
+      <amplify-authenticator v-bind:authConfig="authConfig"></amplify-authenticator>
+      <!-- <v-facebook-login app-id="338038713536141"></v-facebook-login> -->
+    </div>
+    <div v-if="signedIn">
+      <amplify-sign-out class="signout"></amplify-sign-out>
+      <div>
+        <div class="form">
+          <input class="input" v-model="name" placeholder="Coffee Shop Name">
+          <input class="input" v-model="description" placeholder="Coffee Shop Description">
+          <button class="button" v-on:click="createCoffeeShop">Create Coffee Shop</button>
+        </div>
+        <div v-for="item in coffeeShops" :key="item.key" class="list-item">
+          <p class="name">{{ item.name }}</p>
+          <p class="description">{{ item.description }}</p>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'HelloWorld',
-  props: {
-    msg: String
+import { AmplifyEventBus } from "aws-amplify-vue";
+import { Auth, API, graphqlOperation } from "aws-amplify";
+import { VFBLogin as VFacebookLogin } from "vue-facebook-login-component";
+
+const ListCoffeeShops = `
+  query {
+    listCoffeeShops {
+      items {
+        id name description
+      }
+    }
   }
-}
+`;
+const CreateCoffeeShop = `
+  mutation($name: String! $description: String) {
+    createCoffeeShop(input: {
+      name: $name description: $description
+    }) {
+      id name description
+    }
+  }
+`;
+
+export default {
+  name: "HelloWorld",
+  data() {
+    return {
+      msg: String,
+      name: "",
+      description: "",
+      coffeeShops: [],
+      listCoffeeShops: [],
+      test: "teee",
+      authConfig: {
+        signUpConfig: {
+          hiddenDefaults: [
+            'phone_number',
+            'email'
+          ]
+        }
+      }
+    };
+  },
+  async beforeCreate() {
+    const {
+      data: {
+        listCoffeeShops: { items }
+      }
+    } = await API.graphql(graphqlOperation(ListCoffeeShops));
+    this.coffeeShops = items;
+  },
+  created() {
+    this.findUser();
+    AmplifyEventBus.$on("authState", info => {
+      if (info === "signedIn") {
+        this.findUser();
+      } else {
+        this.$store.state.signedIn = false;
+        // this.signedIn = false;
+        this.$store.state.user = null;
+      }
+    });    
+  },
+  computed: {
+    signedIn() {
+      return this.$store.state.signedIn;
+    }
+  },
+  methods: {
+    async findUser() {
+      try {
+        const user = await Auth.currentAuthenticatedUser();
+        this.$store.state.signedIn = true;
+        this.$store.state.user = true;
+      } catch (err) {
+        this.$store.state.signedIn = false;
+        this.$store.state.user = null;
+      }
+    },
+    async createCoffeeShop() {
+      if (this.name === "" || this.description === "") {
+        return;
+      }
+      const coffeeShop = { name: this.name, description: this.description };
+      const coffeeShops = [...this.coffeeShops, coffeeShop];
+      this.coffeeShops = coffeeShops;
+      this.name = "";
+      this.description = "";
+      try {
+        await API.graphql(graphqlOperation(CreateCoffeeShop, coffeeShop));
+        // console.log("coffee shop successfully created!");
+      } catch (err) {
+        // console.log("error adding item: ", err);
+      }
+    },
+  },
+  components: {
+    VFacebookLogin
+  }
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -54,5 +139,10 @@ li {
 }
 a {
   color: #42b983;
+}
+.signout {
+  background-color: #ededed;
+  margin: 0;
+  padding: 11px 0px 1px;
 }
 </style>
