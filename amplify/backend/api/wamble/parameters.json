@@ -1,0 +1,10 @@
+{
+    "AppSyncApiName": "wamble",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "AuthCognitoUserPoolId": {
+        "Fn::GetAtt": [
+            "authwamblewebcb40f7f4",
+            "Outputs.UserPoolId"
+        ]
+    }
+}

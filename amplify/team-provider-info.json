@@ -1,0 +1,21 @@
+{
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "wamble-web-dev-20190611001749-authRole",
+            "UnauthRoleArn": "arn:aws:iam::894956921157:role/wamble-web-dev-20190611001749-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::894956921157:role/wamble-web-dev-20190611001749-authRole",
+            "Region": "eu-central-1",
+            "DeploymentBucketName": "wamble-web-dev-20190611001749-deployment",
+            "UnauthRoleName": "wamble-web-dev-20190611001749-unauthRole",
+            "StackName": "wamble-web-dev-20190611001749",
+            "StackId": "arn:aws:cloudformation:eu-central-1:894956921157:stack/wamble-web-dev-20190611001749/96d133c0-8bcd-11e9-a3f9-025adfcb1154"
+        },
+        "categories": {
+            "auth": {
+                "wamblewebcb40f7f4": {
+                    "hostedUIProviderCreds": "[{\"ProviderName\":\"Facebook\",\"client_id\":\"338038713536141\",\"client_secret\":\"3c7b910db30d809aadb6f848e13093e7\"},{\"ProviderName\":\"Google\",\"client_id\":\" 3184393188-sgrrf2h5p2m9t1nelraevif7ohqr8idh.apps.googleusercontent.com\",\"client_secret\":\"if7Fao0-6fC7QZqqHrfQhJq5 \"}]"
+                }
+            }
+        }
+    }
+}
