@@ -47,22 +47,20 @@ const CreateCoffeeShop = `
 
 export default {
   name: "HelloWorld",
+  props: {
+    authConfig: {
+      signUpConfig: {
+        hiddenDefaults: ["phone_number", "email"]
+      }
+    }
+  },
   data() {
     return {
       msg: String,
       name: "",
       description: "",
       coffeeShops: [],
-      listCoffeeShops: [],
-      test: "teee",
-      authConfig: {
-        signUpConfig: {
-          hiddenDefaults: [
-            'phone_number',
-            'email'
-          ]
-        }
-      }
+      listCoffeeShops: []
     };
   },
   async beforeCreate() {
@@ -83,7 +81,7 @@ export default {
         // this.signedIn = false;
         this.$store.state.user = null;
       }
-    });    
+    });
   },
   computed: {
     signedIn() {
@@ -116,7 +114,7 @@ export default {
       } catch (err) {
         // console.log("error adding item: ", err);
       }
-    },
+    }
   },
   components: {
     VFacebookLogin

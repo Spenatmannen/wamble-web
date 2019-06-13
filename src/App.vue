@@ -1,15 +1,15 @@
 <template>
   <div id="app">
     <!-- <img src="./assets/logo.png"> -->
-    <Navigation></Navigation>
+    <!-- <TheNavigation></TheNavigation> -->
     <router-view/>
   </div>
 </template>
 
 <script>
-import Navigation from './components/Navigation'
+import TheNavigation from './components/TheNavigation'
 import router from './router'; // vue-router instance
-import store from './store'; // vuex store instance
+import store from './store/'; // vuex store instance
 
 
 
@@ -18,7 +18,7 @@ export default {
   router,
   store,
   components: {
-    'Navigation': Navigation
+    'TheNavigation': TheNavigation
   }
 }
 </script>
@@ -29,10 +29,11 @@ body {
   margin: 0;
 }
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  height: 100vh;
+  /* font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #2c3e50; */
 }
 </style>
