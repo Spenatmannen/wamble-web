@@ -1,16 +1,17 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
-import Home from '@/components/Home' // this is the import line to add
+import ComingSoon from '@/components/ComingSoon' // this is the import line to add
 
 Vue.use(Router)
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
-      name: 'Home',
-      component: Home
+      name: 'ComingSoon',
+      component: ComingSoon
     }
     // {
     //   path: '/HelloWorld',
