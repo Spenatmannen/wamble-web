@@ -21,12 +21,14 @@
 
 <script>
 export default {
-  name: "Home"
+  name: "ComingSoon"
 };
 </script>
 
 
-<style lang="scss">
+<style lang="scss" scoped>
+@import "../scss/_mixins.scss";
+
 .body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
@@ -77,6 +79,10 @@ video {
   padding-bottom: 0;
   z-index: 2;
 
+  @include respond(phone) {
+    width: 100%;
+  }
+
   &-bg {
     position: absolute;
     top: 0;
@@ -89,6 +95,12 @@ video {
     background-color: rgba(0, 0, 0, 0.68);
     transform: skewX(-8deg);
     transform-origin: top right;
+
+    @include respond(phone) {
+      transform-origin: bottom left;
+      transform: skewY(-8deg);
+      height: 50%;
+    }
   }
 
   &__container {
@@ -97,6 +109,10 @@ video {
 
     width: 100%;
     height: 100%;
+
+    @include respond(phone) {
+      height: 50%;
+    }
   }
 
   &__content {
@@ -105,19 +121,18 @@ video {
     margin: 0 10rem 0 7rem;
 
     h1 {
-      font-size: 3.5rem;
+      font-size: 3.7rem;
       font-family: Merriweather;
       font-weight: 700;
     }
 
     p {
-      font-size: 1.3rem;
+      font-size: 1.5rem;
       font-family: "Source Sans Pro";
       font-weight: 300;
 
       margin-bottom: 6rem;
     }
-
   }
 }
 </style>
