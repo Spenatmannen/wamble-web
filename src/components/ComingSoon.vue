@@ -16,12 +16,23 @@
         </div>
       </div>
     </div>
+    <div class="icon__container" v-on:click="github($event)">
+      <svg class="icon icon-github">
+        <use xlink:href="../assets/icons/symbol-defs.svg#icon-github"></use>
+      </svg>
+    </div>
   </section>
 </template>
 
 <script>
 export default {
-  name: "ComingSoon"
+  name: "ComingSoon",
+  methods: {
+    github: function(event) {
+      console.log("Hello");
+      return window.open("https://github.com/Jowa1307/wamble-web");
+    }
+  }
 };
 </script>
 
@@ -57,6 +68,34 @@ video {
   height: auto;
   transform: translateX(-50%) translateY(-50%);
   z-index: 0;
+}
+
+.icon {
+  display: inline-block;
+  width: 6rem;
+  height: 6rem;
+  stroke-width: 0;
+  fill: #2b2b2b;
+  stroke: #2b2b2b;
+
+  &__container {
+    z-index: 200;
+    position: fixed;
+    bottom: 3rem;
+    right: 3rem;
+    padding: 0.5rem;
+    background-color: rgba($color: white, $alpha: 0.5);
+    border-radius: 2rem;
+    transition: all 0.25s ease-in-out;
+    box-shadow: 10px 10px 37px -18px rgba(0, 0, 0, 0.75);
+
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.2);
+      box-shadow: 10px 10px 37px -5px rgba(0, 0, 0, 0.75);
+      background-color: rgba($color: white, $alpha: .8);
+    }
+  }
 }
 
 .overlay {
