@@ -12,6 +12,11 @@ export default new Router({
       path: '/',
       name: 'ComingSoon',
       component: ComingSoon
+    },
+    {
+      path: '/login',
+      name: 'HelloWorld',
+      component: HelloWorld
     }
     // {
     //   path: '/HelloWorld',
