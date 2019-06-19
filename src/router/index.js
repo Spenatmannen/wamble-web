@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
-import ComingSoon from '@/components/ComingSoon' // this is the import line to add
+import HomePage from '@/views/HomePage'
+import ComingSoon from '@/views/ComingSoon' // this is the import line to add
+import NotFound from '@/views/NotFound'
 
 Vue.use(Router)
 
@@ -10,13 +11,18 @@ export default new Router({
   routes: [
     {
       path: '/',
+      name: 'Home',
+      component: HomePage
+    },
+    {
+      path: '/ComingSoon',
       name: 'ComingSoon',
       component: ComingSoon
     },
     {
-      path: '/login',
-      name: 'HelloWorld',
-      component: HelloWorld
+      path: '*',
+      name: 'NotFound',
+      component: NotFound
     }
     // {
     //   path: '/HelloWorld',
