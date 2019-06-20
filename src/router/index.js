@@ -11,14 +11,14 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Home',
-      component: HomePage
-    },
-    {
-      path: '/ComingSoon',
       name: 'ComingSoon',
       component: ComingSoon
     },
+    // {
+    //   path: '/Homie',
+    //   name: 'Home',
+    //   component: HomePage
+    // },
     {
       path: '*',
       name: 'NotFound',
