@@ -29,7 +29,6 @@ export default {
   name: "ComingSoon",
   methods: {
     github: function(event) {
-      console.log("Hello");
       return window.open("https://github.com/Jowa1307/wamble-web");
     }
   }
