@@ -1,13 +1,13 @@
 <template>
   <div id="app">
     <!-- <img src="./assets/logo.png"> -->
-    <!-- <TheNavigation></TheNavigation> -->
+    <!-- <TheNavbar></TheNavbar> -->
     <router-view/>
   </div>
 </template>
 
 <script>
-import TheNavigation from "./components/TheNavigation";
+import TheNavbar from "@/components/TheNavbar";
 import router from "./router"; // vue-router instance
 import store from "./store/"; // vuex store instance
 
@@ -16,7 +16,7 @@ export default {
   router,
   store,
   components: {
-    TheNavigation: TheNavigation
+    TheNavbar: TheNavbar
   }
 };
 </script>
