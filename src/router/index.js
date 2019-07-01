@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HomePage from '@/views/HomePage'
-import ComingSoon from '@/views/ComingSoon' // this is the import line to add
+import LandingPage from '@/views/LandingPage'
+import ComingSoon from '@/views/ComingSoon'
 import NotFound from '@/views/NotFound'
+import CompetitionPage from '@/views/CompetitionPage'
 
 Vue.use(Router)
 
@@ -14,10 +15,21 @@ export default new Router({
       name: 'ComingSoon',
       component: ComingSoon
     },
-    // {
-    //   path: '/Homie',
-    //   name: 'Home',
-    //   component: HomePage
+    {
+      path: '/home',
+      name: 'Home',
+      component: LandingPage
+    },
+    {
+      path: '/competition/:id',
+      name: 'Competition',
+      component: CompetitionPage,
+      props: true
+    },
+    // { 
+    //   path: '/search', 
+    //   component: SearchUser, 
+    //   props: (route) => ({ query: route.query.q }) ;;;; route.params.years
     // },
     {
       path: '*',
